@@ -112,16 +112,16 @@ export default function HomePage() {
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {[
-            '/transformacoes/transformação1.jpg',
-            '/transformacoes/trasnformação2.jpg',
-            '/transformacoes/transformação3.jpg',
-            '/transformacoes/transformação4.jpg',
+            '/transformacoes/transformacao1.jpg',
+            '/transformacoes/transformacao2.jpg',
+            '/transformacoes/transformacao3.jpg',
+            '/transformacoes/transformacao4.jpg',
             '/transformacoes/transformacao5.jpg',
             '/transformacoes/transformacao6.jpg',
           ].map((src, idx, arr) => (
             <div key={idx} className="bg-white rounded-xl overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.12)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.18)] hover:-translate-y-1.5 transition-all duration-300">
               <div className="relative h-[420px] md:h-[520px] overflow-hidden bg-white">
-                <Image src={src} alt={`Transformação ${idx + 1}`} fill className="object-contain p-2" />
+                <Image src={src} alt={`Transformação ${idx + 1}`} fill className="object-contain p-2" unoptimized />
                 <div className="pointer-events-none absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.7) 100%)' }} />
               </div>
               <div className="px-5 py-5 text-center text-[#2D3436] text-[14px] font-medium">{idx >= arr.length - 2 ? 'Em apenas um mês !' : 'Transformação'}</div>
@@ -233,7 +233,7 @@ export default function HomePage() {
           ].map((item, i) => (
             <div key={i} className="bg-white rounded-xl overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.12)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.18)] hover:-translate-y-1.5 transition-all duration-300">
               <div className="relative h-[360px] md:h-[440px] overflow-hidden bg-white">
-                <Image src={item.src} alt={`Resultado ${i + 1} - ${item.label}`} fill className="object-contain p-2" />
+                <Image src={item.src} alt={`Resultado ${i + 1} - ${item.label}`} fill className="object-contain p-2" unoptimized />
               </div>
               <div className="px-5 py-4 text-center text-[#2D3436] text-[14px] font-medium"><span className="font-semibold">Produto:</span> {item.label}</div>
             </div>
