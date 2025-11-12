@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #00e6fe;
+  --color-background: #00e6fe;
+  --color-background-light: #b3f1ff;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+  background-color: var(--color-background);
+  min-height: 100%;
+}
+
+body {
+  @apply bg-background text-white;
+  min-height: 100vh;
+}
+
+/* Animated background helpers */
+.bg-animated-cyan {
+  background: radial-gradient(1200px 600px at 10% 0%, rgba(0,215,255,0.25), transparent 60%),
+              radial-gradient(1000px 600px at 90% 10%, rgba(0,153,204,0.22), transparent 60%),
+              var(--bg-fallback, transparent);
+  animation: gradientShift 12s ease-in-out infinite alternate;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 0%, 100% 0%, 0 0; }
+  100% { background-position: 10% 4%, 90% 6%, 0 0; }
+}
+
+/* Dots pattern overlay */
+.dots-overlay {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 24px 24px; background-position: 0 0;
+}
+
+/* Floating soft shapes */
+.float-shape { position: absolute; border-radius: 9999px; filter: blur(30px); opacity: 0.45; pointer-events: none; z-index: 0; }
+.float-shape.c1 { width: 280px; height: 280px; background: radial-gradient(circle, rgba(0,215,255,0.28), transparent 60%); top: -40px; left: -40px; animation: floatY 10s ease-in-out infinite alternate; }
+.float-shape.c2 { width: 320px; height: 320px; background: radial-gradient(circle, rgba(102,126,234,0.22), transparent 60%); top: 120px; right: -60px; animation: floatY 12s 0.6s ease-in-out infinite alternate; }
+
+@keyframes floatY { from { transform: translateY(0px); } to { transform: translateY(18px); } }
+
+/* Scroll indicator */
+.scroll-indicator { display:flex; align-items:center; justify-content:center; gap:8px; color:#ffffffcc; font-weight:600; text-transform:uppercase; letter-spacing:.08em; }
+.scroll-indicator .dot { width:8px; height:8px; border-radius:9999px; background:#ffffffb3; animation: pulse 1.8s infinite; }
+.scroll-indicator svg { transition: transform .3s ease; }
+.scroll-indicator:hover svg { transform: translateY(3px); }
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 230, 254, 0.08);
+}
+
+/* Smooth hover transitions */
+.hover-animate {
+  @apply transition-all duration-300 ease-out;
+}
+
+/* Entrance animation for cards */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Products: force pure white cards and controlled image container */
+.product-card,
+.product-card:hover,
+.product-card:focus,
+.product-card:active {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+}
+
+.product-card > * {
+  background: transparent !important;
+}
+
+.product-image-container {
+  background: #FAFAFA !important;
+  border: 1px solid #EEEEEE !important;
+}
+
+/* Plans: layout and cards */
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-top: 6px;
+}
+@media (max-width: 968px) {
+  .plans-grid { grid-template-columns: 1fr; gap: 24px; }
+}
+
+.plan-card {
+  background: #FFFFFF;
+  color: #1A1A2E;
+  border-radius: 20px;
+  padding: 20px 18px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  animation: fadeInUp 0.7s ease forwards;
+}
+.plan-card:hover { transform: translateY(-12px); box-shadow: 0 20px 50px rgba(0,0,0,0.18); }
+.plan-card.popular { border: 3px solid #00e6fe; }
+.plan-card.mensal { animation-delay: 0.2s; }
+.plan-card.trimestral { animation-delay: 0.4s; }
+
+.plan-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+}
+.plan-card.mensal::before { background: linear-gradient(90deg, #00e6fe 0%, #00e6fe 100%); }
+.plan-card.trimestral::before { background: linear-gradient(90deg, #00e6fe 0%, #00e6fe 100%); }
+
+.plan-badge {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: linear-gradient(135deg, #00e6fe 0%, #00e6fe 100%);
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+  box-shadow: 0 4px 15px rgba(0,230,254,0.4);
+  animation: pulse 2s ease-in-out infinite;
+}
+.plan-card.trimestral .plan-badge { display: none !important; }
+
+.plan-header { text-align: center; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 2px solid #F0F0F0; }
+.plan-name { color: #1A1A2E; font-weight: 800; font-size: 22px; margin-bottom: 6px; letter-spacing: -0.2px; }
+.plan-description { color: #636E72; font-size: 13px; line-height: 1.55; }
+
+.plan-price { display:none; }
+.plan-price-value { display:none; }
+.plan-price-currency { display:none; }
+.plan-price-period { display:none; }
+.plan-savings { display:none; }
+
+.plan-features { list-style: none; padding: 0; margin: 0 0 14px 0; flex-grow: 1; }
+.plan-features li { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; color: #2D3436; font-size: 13px; line-height: 1.5; }
+.plan-features li::before { content: '✓'; color: #00e6fe; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+.plan-card.trimestral .plan-features li::before { color: #00e6fe; }
+
+.plan-divider { display: flex; align-items: center; gap: 10px; margin: 14px 0 12px; }
+.plan-divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, #E0E0E0, transparent); }
+.plan-divider-text { color: #667eea; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
+
+.plan-bonuses { list-style: none; padding: 12px; margin: 0 0 14px 0; background: linear-gradient(135deg, #F8F9FA 0%, #FFFFFF 100%); border-radius: 12px; border-left: 4px solid #667eea; }
+.plan-bonuses li { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; color: #2D3436; font-size: 13px; font-weight: 500; }
+.plan-bonuses li:last-child { margin-bottom: 0; }
+.plan-bonuses li::before { content: '🎁'; font-size: 18px; flex-shrink: 0; }
+
+.plan-button { background: linear-gradient(135deg, #00e6fe 0%, #00e6fe 100%); color: #fff; padding: 10px 20px; border-radius: 9999px; text-decoration: none; font-weight: 700; font-size: 13px; text-align: center; box-shadow: 0 8px 20px rgba(0,230,254,0.3); transition: all .3s ease; display: block; }
+.plan-button:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(0,230,254,0.4); }
+.plan-card.trimestral .plan-button { background: linear-gradient(135deg, #00e6fe 0%, #00e6fe 100%); box-shadow: 0 8px 20px rgba(0,230,254,0.3); }
+.plan-card.trimestral .plan-button:hover { box-shadow: 0 12px 26px rgba(0,230,254,0.4); }
+
+@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+
+@media (max-width: 768px) {
+  .plan-card { padding: 22px 18px; border-radius: 18px; }
+  .plan-name { font-size: 20px; }
+  .plan-badge { top: 12px; right: 12px; padding: 6px 14px; font-size: 12px; }
+}
+
+/* Remove any legacy product badge */
+.product-badge { display: none !important; }
+
+/* Product titles: decorative underline variant colors */
+.product-title {
+  position: relative;
+  padding-bottom: 16px;
+}
+.product-title::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  transition: width 0.3s ease;
+}
+.product-card:hover .product-title::after { width: 80px; }
+
+/* Variant-specific underline colors */
+.product-card.secaps-black .product-title::after {
+  background: linear-gradient(90deg, #FF6B6B 0%, #C44569 100%);
+}
+.product-card.secaps-max .product-title::after {
+  background: linear-gradient(90deg, #25D366 0%, #128C7E 100%);
+}
+.product-card.seca-ja .product-title::after {
+  background: linear-gradient(90deg, #FFA500 0%, #FF6347 100%);
+}
+.product-card.monjaro .product-title::after {
+  background: linear-gradient(90deg, #A29BFE 0%, #6C5CE7 100%);
+}
